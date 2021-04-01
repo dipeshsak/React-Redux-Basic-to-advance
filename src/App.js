@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css'
 import Age from './Age'
-
+import {connect} from 'react-redux'
 
 class App extends React.Component{
   
@@ -21,7 +21,7 @@ class App extends React.Component{
     })
   }
 
-  onDEC(){
+  onDEC(){ 
     this.setState({
       ...this.state,
       age:this.state.age>0?this.state.age-1:0
@@ -38,11 +38,11 @@ class App extends React.Component{
     return(
       <div className="App">
          <h1>Welcome</h1>
-         <Age age={this.state.age} count="5" />
+         <Age  count="5" />
          {/* <h2>Age : {this.state.age} </h2> */}
          <div style={{display:"flex",justifyContent:'space-around',alignItems:'center'}}>
-         <button onClick={this.onINC}>INCREMENT</button>
-         <button onClick={this.onDEC}>DECREMENT(OLD Way)</button>
+         <button onClick={this.props.onInc}>INCREMENT</button>
+         <button onClick={this.props.onDec}>DECREMENT(OLD Way)</button>
          <button onClick={()=>this.onDEC()}>DECREMENT(NEW Way) </button>
          </div>
       </div>
@@ -50,4 +50,10 @@ class App extends React.Component{
   }
 }
 
-export default App
+const mapDispatchToProps =(dispatch)=>{
+  return{
+    onInc:()=>dispatch({type:"INC"}),
+    onDec :()=>dispatch({type:"DEC"})
+  }
+}
+export default connect(null,mapDispatchToProps)(App)
