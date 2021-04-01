@@ -6,7 +6,7 @@ class Age extends React.Component{
         //console.log("Received data",this.props)
         return(
             <div>
-                <h1>Hello from Age : {this.props.age}</h1>
+                <h1>Hello From Age : {this.props.age}</h1>
             </div>
         )
     }
