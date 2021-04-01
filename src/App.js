@@ -5,55 +5,58 @@ import {connect} from 'react-redux'
 
 class App extends React.Component{
   
-  constructor(){
-    super();
-    this.state={
-        age:5,
-        count:0,
-    };
-    this.onDEC=this.onDEC.bind(this)
-  }
+  // constructor(){
+  //   super();
+  //   this.state={
+  //       age:5,
+  //       count:0,
+  //   };
+  //   this.onDEC=this.onDEC.bind(this)
+  // }
 
-  onINC =()=>{
-    this.setState({
-      ...this.state,
-      age:this.state.age+1
-    })
-  }
+  // onINC =()=>{
+  //   this.setState({
+  //     ...this.state,
+  //     age:this.state.age+1
+  //   })
+  // }
 
-  onDEC(){ 
-    this.setState({
-      ...this.state,
-      age:this.state.age>0?this.state.age-1:0
-    })
+  // onDEC(){ 
+  //   console.log("Clickeddd")
+  //   this.setState({
+  //     ...this.state,
+  //     age:this.state.age>0?this.state.age-1:0
+  //   })
     // if(this.state.age>0){
     //   this.setState({
     //     ...this.state,
     //     age:this.state.age-1
     //   })
     // }
-  }
+  // }
 
   render(){
+    console.log("APP.js history",this.props) 
     return(
       <div className="App">
          <h1>Welcome</h1>
          <Age  count="5" />
          {/* <h2>Age : {this.state.age} </h2> */}
-         <div style={{display:"flex",justifyContent:'space-around',alignItems:'center'}}>
-         <button onClick={this.props.onInc}>INCREMENT</button>
-         <button onClick={this.props.onDec}>DECREMENT(OLD Way)</button>
-         <button onClick={()=>this.onDEC()}>DECREMENT(NEW Way) </button>
-         </div>
+         
       </div>
     )
   }
 }
 
-const mapDispatchToProps =(dispatch)=>{
+const mapStateToProps =(state)=>{
   return{
-    onInc:()=>dispatch({type:"INC"}),
-    onDec :()=>dispatch({type:"DEC"})
+    ageHistory:StaticRange.ageHistory
   }
 }
-export default connect(null,mapDispatchToProps)(App)
+const mapDispatchToProps =(dispatch)=>{
+  return{
+    onInc:()=>dispatch({type:"INC",val:5}),
+    onDec :()=>dispatch({type:"DEC",val:3})
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(App)
